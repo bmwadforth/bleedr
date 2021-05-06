@@ -5,7 +5,8 @@ set(CMAKE_C_STANDARD 11)
 
 if (WIN32)
     include_directories(lib/npcap/Include)
-    link_directories(lib/npcap/Lib/x64)
+    link_directories(lib/npcap/Lib)
+    SET(LIBRARIES wpcap)
 endif()
 
 if (UNIX)
