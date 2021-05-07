@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <pcap.h>
 #include <time.h>
+
+extern "C" {
 #include "include/types.h"
 #include "include/ethernet.h"
 #include "include/wifi.h"
+}
 
 #define scanf_s scanf
 
@@ -37,8 +40,8 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 
     bleedr->snap_len = header->len;
     bleedr->packet_data = pkt_data;
-    bleedr->destination_mac = malloc(sizeof(char) * 10);
-    bleedr->source_mac = malloc(sizeof(char) * 10);
+    bleedr->destination_mac = (char *) malloc(sizeof(char) * 10);
+    bleedr->source_mac = (char *) malloc(sizeof(char) * 10);
 
     // For link types see: https://www.tcpdump.org/linktypes.html
     switch (pcap_link_type) {
@@ -113,7 +116,7 @@ int main() {
     }
 
 
-    Bleedr_t *bleedr = (Bleedr_t*) malloc(sizeof *bleedr);
+    auto *bleedr = (Bleedr_t *) malloc(sizeof(Bleedr_t *));
     bleedr->pcap_handle = pcap_h;
     bleedr->pcap_dumper_handle = pcap_dump_handle;
 

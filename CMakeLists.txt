@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.13)
-project(bleedr C CXX)
+project(bleedr)
 
-set(CMAKE_C_STANDARD 11)
+#set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 20)
 
 if (WIN32)
     include_directories(lib/npcap/Include)
@@ -16,5 +17,6 @@ if (UNIX)
     SET(LIBRARIES pcap)
 endif()
 
-add_executable(bleedr main.c)
+file(GLOB bleedr_src "include/**/*.h" "src/**/*.cpp" "src/**/*.c")
+add_executable(bleedr main.cpp ${bleedr_src})
 target_link_libraries(bleedr ${LIBRARIES})
