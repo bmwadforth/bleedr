@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include <cstdio>
 #include <pcap.h>
-#include <time.h>
 
 extern "C" {
 #include "include/types.h"
@@ -8,40 +7,18 @@ extern "C" {
 #include "include/wifi.h"
 }
 
-#define scanf_s scanf
-
-/* Callback function invoked by libpcap for every incoming packet */
 void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data) {
-    struct tm *ltime;
-    char timestr[16];
-    time_t local_tv_sec;
-
-    Bleedr_t *bleedr = (Bleedr_t *) param;
+    auto *bleedr = (Bleedr_t *) param;
 
     pcap_dump((u_char *) bleedr->pcap_dumper_handle, header, pkt_data);
-
-    /* convert the timestamp to readable format */
-    local_tv_sec = header->ts.tv_sec;
-    ltime = localtime(&local_tv_sec);
-    strftime(timestr, sizeof timestr, "%H:%M:%S", ltime);
-
-    /*printf("%s,%.6d len:%d\n", timestr, header->ts.tv_usec, header->len);
-
-    for (int i = 0; i < header->len; i++) {
-        printf("%d ", *pkt_data++);
-    }
-
-    printf("\n\n");*/
 
     int pcap_link_type = pcap_datalink(bleedr->pcap_handle);
     if (pcap_link_type == PCAP_ERROR_NOT_ACTIVATED) {
         fprintf(stderr, "Attempting to get link type from handle that has not been activated");
     }
 
-    bleedr->snap_len = header->len;
+    bleedr->packet_len = header->len;
     bleedr->packet_data = pkt_data;
-    bleedr->destination_mac = (char *) malloc(sizeof(char) * 10);
-    bleedr->source_mac = (char *) malloc(sizeof(char) * 10);
 
     // For link types see: https://www.tcpdump.org/linktypes.html
     switch (pcap_link_type) {
@@ -49,7 +26,7 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
             handle_ethernet(bleedr);
             break;
         case 105:
-            //handle_wifi(bleedr);
+            handle_wifi(bleedr);
             break;
         default:
             //TODO: return pcap_error here, link-type encapsulating packet is not supported
@@ -58,59 +35,36 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 }
 
 int main() {
-    char errbuf[PCAP_ERRBUF_SIZE];
+    char err_buff[PCAP_ERRBUF_SIZE];
 
-    pcap_if_t *interfaces, *temp;
-    int i = 0;
-    if (pcap_findalldevs(&interfaces, errbuf) == -1) {
-        fprintf(stderr, "Error: %s\n", errbuf);
-        return (2);
+    auto *pcap_iface = (pcap_if_t *) malloc(sizeof(pcap_if_t *));
+    get_interface(err_buff, pcap_iface);
+
+    //auto *pcap_h = (pcap_t *) malloc(sizeof(pcap_t *));
+    //activate_interface(err_buff, pcap_iface, pcap_h);
+
+    if (pcap_init(PCAP_CHAR_ENC_UTF_8, err_buff) == -1) {
+        fprintf(stderr, "Initialise Error: %s\n", err_buff);
     }
 
-    for (temp = interfaces; temp; temp = temp->next) {
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-        printf("\n%d) %s", i++, temp->description);
-#else
-        printf("\n%d) %s", i++, temp->name);
-#endif
-
-    }
-
-    printf("\n\nSelect interface: ");
-    int iface;
-    scanf_s("%d", &iface);
-
-    i = 0;
-    for (temp = interfaces; temp; temp = temp->next) {
-        if (i == iface) {
-            break;
-        }
-        i++;
-    }
-
-    if (pcap_init(PCAP_CHAR_ENC_UTF_8, errbuf) == -1) {
-        fprintf(stderr, "Initialise Error: %s\n", errbuf);
-        return (2);
-    }
-
-    pcap_t *pcap_h = pcap_create(temp->name, errbuf);
+    pcap_t *pcap_h = pcap_create(pcap_iface->name, err_buff);
     if (pcap_h == NULL) {
-        fprintf(stderr, "Create Error: %s\n", errbuf);
-        return (2);
+        fprintf(stderr, "Create Error: %s\n", err_buff);
     }
 
+    // Set packet capture settings
     pcap_set_buffer_size(pcap_h, 65536);
     pcap_set_snaplen(pcap_h, 65535);
 
-    int activateErr = pcap_activate(pcap_h);
-    if (activateErr < 0) {
-        fprintf(stderr, "Activate Error: %d\n", activateErr);
-        return (2);
+    // Activate packet capture
+    int activate_err = pcap_activate(pcap_h);
+    if (activate_err < 0) {
+        fprintf(stderr, "Activate Error: %d\n", activate_err);
     }
 
-    pcap_dumper_t *pcap_dump_handle = pcap_dump_open(pcap_h, "mydump.pcap");
 
-    if (pcap_dump_handle == NULL) {
+    pcap_dumper_t *pcap_dump_handle = pcap_dump_open(pcap_h, "mydump.pcap");
+    if (pcap_dump_handle == nullptr) {
         fprintf(stderr, "Error Opening Dump\n");
         return (2);
     }
@@ -121,5 +75,6 @@ int main() {
     bleedr->pcap_dumper_handle = pcap_dump_handle;
 
     pcap_loop(pcap_h, 0, packet_handler, (unsigned char *) bleedr);
+
     return (0);
 }
