@@ -33,6 +33,14 @@ void get_interface(char err_buf[], pcap_if_t *pcap_iface) {
     pcap_freealldevs(interfaces);
 };
 
-void activate_interface(char err_buff[], pcap_if_t *pcap_iface, pcap_t *pcap_h) {
+void activate_interface(pcap_t *pcap_h) {
+    // Set packet capture settings
+    pcap_set_buffer_size(pcap_h, 65536);
+    pcap_set_snaplen(pcap_h, 65535);
 
+    // Activate packet capture
+    int activate_err = pcap_activate(pcap_h);
+    if (activate_err < 0) {
+        fprintf(stderr, "Activate Error: %d\n", activate_err);
+    }
 }
