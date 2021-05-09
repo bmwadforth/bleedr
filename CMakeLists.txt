@@ -17,6 +17,10 @@ if (UNIX)
     SET(LIBRARIES pcap)
 endif()
 
-file(GLOB bleedr_src "include/**/*.h" "src/**/*.cpp" "src/**/*.c")
-add_executable(bleedr main.cpp ${bleedr_src} src/common/interface.c src/common/packet.c)
+file (GLOB CPP_FILES src/**/*.cpp src/**/*.cc src/**/**/*.cpp src/**/**/*.cc)
+file (GLOB C_FILES src/**/*.c src/**/**/*.c)
+file (GLOB H_FILES include/**/*.h include/**/**/*.h)
+set (SOURCE_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
+
+add_executable(bleedr main.cpp ${SOURCE_FILES})
 target_link_libraries(bleedr ${LIBRARIES})

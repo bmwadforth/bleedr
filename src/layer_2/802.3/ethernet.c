@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "../../include/types.h"
-#include "../../include/ethernet.h"
+#include "../../../include/types.h"
+#include "../../../include/layer_2/ethernet.h"
+#include "../../../include/layer_3/ip.h"
 
 
 void handle_ethernet(Bleedr_t *bleedr) {
@@ -13,8 +14,13 @@ void handle_ethernet(Bleedr_t *bleedr) {
 
     switch (ether_type_decimal) {
         case ETHERTYPE_IPV4:
+            handle_ipv4((IPV4_packet_t *) &bleedr->packet_data[14]);
+            break;
         case ETHERTYPE_IPV6:
+            //handle_ipv6();
+            break;
         case ETHERTYPE_8021X:
+            break;
         case ETHERTYPE_ARP:
             //TODO: Calculate payload size
         case ETHERTYPE_8021Q:
