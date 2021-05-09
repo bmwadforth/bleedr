@@ -18,5 +18,5 @@ if (UNIX)
 endif()
 
 file(GLOB bleedr_src "include/**/*.h" "src/**/*.cpp" "src/**/*.c")
-add_executable(bleedr main.cpp ${bleedr_src} src/common/interface.c)
+add_executable(bleedr main.cpp ${bleedr_src} src/common/interface.c src/common/packet.c)
 target_link_libraries(bleedr ${LIBRARIES})
