@@ -8,10 +8,10 @@ void handle_ethernet(Bleedr_t *bleedr) {
 
     char *hex_eth_hd = malloc(sizeof(char) * 5);
     sprintf(hex_eth_hd, "%02X%02X", eth_hdr->ether_type[0], eth_hdr->ether_type[1]);
-    long number = strtol((const char *)hex_eth_hd, NULL, 16);
+    long ether_type_decimal = strtol((const char *) hex_eth_hd, NULL, 16);
     free(hex_eth_hd);
 
-    switch(number) {
+    switch (ether_type_decimal) {
         case ETHERTYPE_IPV4:
         case ETHERTYPE_IPV6:
         case ETHERTYPE_8021X:
@@ -20,7 +20,6 @@ void handle_ethernet(Bleedr_t *bleedr) {
         case ETHERTYPE_8021Q:
             break;
         case ETHERTYPE_8021Q_NNI:
-            break;
             break;
     }
 

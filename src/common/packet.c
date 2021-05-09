@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <pcap.h>
 #include "../../include/types.h"
+#include "../../include/interface.h"
 #include "../../include/ethernet.h"
 #include "../../include/wifi.h"
 
@@ -18,12 +19,11 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
     bleedr->packet_data = pkt_data;
     bleedr->packet_time = header->ts;
 
-    // For link types see: https://www.tcpdump.org/linktypes.html
     switch (pcap_link_type) {
-        case 1:
+        case LINKTYPE_ETHERNET:
             handle_ethernet(bleedr);
             break;
-        case 105:
+        case LINKTYPE_WIFI:
             handle_wifi(bleedr);
             break;
         default:
