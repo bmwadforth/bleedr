@@ -45,3 +45,15 @@ std::string to_ipv4(uint8_t *buff) {
 
     return raw.str();
 }
+
+std::string to_decimal(uint8_t * buff, int len) {
+    std::stringstream raw;
+    unsigned int temp;
+
+    std::string hex_val = to_hex(buff, len);
+    raw << std::hex << hex_val;
+    raw >> temp;
+    raw << static_cast<int>(temp);
+
+    return std::to_string(temp);
+};

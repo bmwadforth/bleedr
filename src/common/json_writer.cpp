@@ -41,6 +41,9 @@ void JsonWriter::Write() {
     std::string ip_source = to_ipv4(this->ip_packet->source_ip);
     std::string ip_destination = to_ipv4(this->ip_packet->destination_ip);
 
+    std::string tcp_destination_port = to_decimal(this->tcp_packet->destination_port, sizeof(this->tcp_packet->destination_port));
+    std::string tcp_source_port = to_decimal(this->tcp_packet->source_port, sizeof(this->tcp_packet->source_port));
+
     std::string raw_packet = to_hex((uint8_t *) this->bleedr->packet_data, this->bleedr->packet_len);
 
 
@@ -61,7 +64,8 @@ void JsonWriter::Write() {
                                                       {"destination_ip", ip_destination}
                                               }},
                             {"transport_layer", {
-
+                                                        {"source_port", tcp_source_port},
+                                                        {"destination_port", tcp_destination_port},
                                                 }},
                             {"raw", raw_packet}
                     },
