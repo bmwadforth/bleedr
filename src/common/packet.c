@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <pcap.h>
 #include "../../include/types.h"
+#include "../../include/ethernet.h"
+#include "../../include/wifi.h"
 
 void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data) {
     Bleedr_t *bleedr = (Bleedr_t *) param;
