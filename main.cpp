@@ -9,6 +9,8 @@ extern "C" {
 #include "include/wifi.h"
 }
 
+#define u_char unsigned char;
+
 int main() {
     char err_buff[PCAP_ERRBUF_SIZE];
     auto *pcap_iface = (pcap_if_t *) malloc(sizeof(pcap_if_t));

@@ -16,6 +16,7 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 
     bleedr->packet_len = header->len;
     bleedr->packet_data = pkt_data;
+    bleedr->packet_time = header->ts;
 
     // For link types see: https://www.tcpdump.org/linktypes.html
     switch (pcap_link_type) {
