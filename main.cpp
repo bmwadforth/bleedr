@@ -5,8 +5,8 @@ extern "C" {
 #include "include/types.h"
 #include "include/interface.h"
 #include "include/packet.h"
-#include "include/layer_2/ethernet.h"
-#include "include/layer_2/wifi.h"
+#include "include/link_layer/ethernet.h"
+#include "include/link_layer/wifi.h"
 }
 
 #define u_char unsigned char;

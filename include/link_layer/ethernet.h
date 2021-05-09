@@ -8,7 +8,7 @@
 #define ETHERTYPE_8021X 0x888E
 #define ETHERTYPE_ARP 0x0806
 
-struct Ethernet_header {
+struct Ethernet_packet {
     /* destination MAC */
     u_char dst_mac[6];
     /* source MAC */
@@ -18,8 +18,7 @@ struct Ethernet_header {
     u_char ether_type[2];
 };
 
-typedef struct Ethernet_header Ethernet_header_t;
-
+typedef struct Ethernet_packet Ethernet_packet_t;
 
 void handle_ethernet(Bleedr_t *bleedr);
 

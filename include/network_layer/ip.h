@@ -1,6 +1,9 @@
 #ifndef BLEEDR_IPV4_H
 #define BLEEDR_IPV4_H
 
+#include "../types.h"
+#include "../link_layer/ethernet.h"
+
 // See https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers for protocol numbers.
 // This is the list of protocols that are encapsulated by IP packets and are currently supported by bleedr.
 #define IP_PROTOCOL_ICMP 0x01
@@ -45,7 +48,7 @@ struct IPV6_packet {
 
 typedef struct IPV6_Packet IPV6_packet_t;*/
 
-void handle_ipv4(IPV4_packet_t *);
+void handle_ipv4(Ethernet_packet_t *, Bleedr_t *);
 void handle_ipv6();
 
 #endif //BLEEDR_IPV4_H
