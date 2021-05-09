@@ -4,6 +4,7 @@
 extern "C" {
 #include "include/types.h"
 #include "include/interface.h"
+#include "include/packet.h"
 #include "include/ethernet.h"
 #include "include/wifi.h"
 }

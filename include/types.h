@@ -12,7 +12,4 @@ struct Bleedr {
 
 typedef struct Bleedr Bleedr_t;
 
-// Packet handler
-void packet_handler(u_char *, const struct pcap_pkthdr *, const u_char *);
-
 #endif //BLEEDR_TYPES_H
