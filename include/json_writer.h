@@ -12,9 +12,15 @@
 class JsonWriter {
 private:
     std::ofstream file;
+    Ethernet_packet_t *ethernet_packet;
+    IPV4_packet_t *ip_packet;
+    TCP_packet_t *tcp_packet;
 public:
     std::string filename;
-    JsonWriter(std::string filename);
+
+    JsonWriter(Ethernet_packet_t *, IPV4_packet_t *, TCP_packet_t *, std::string);
+
+    void Write();
 };
 
 

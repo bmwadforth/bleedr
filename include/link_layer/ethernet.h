@@ -15,7 +15,7 @@ struct Ethernet_packet {
     u_char src_mac[6];
     /* EtherType */
     // See https://en.wikipedia.org/wiki/EtherType for ether types.
-    u_char ether_type[2];
+    uint8_t ether_type[2];
 };
 
 typedef struct Ethernet_packet Ethernet_packet_t;

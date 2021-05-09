@@ -17,6 +17,10 @@ if (UNIX)
     SET(LIBRARIES pcap)
 endif()
 
+include_directories(lib/json/include)
+link_directories(lib/json)
+add_subdirectory(lib/json)
+
 file (GLOB CPP_FILES src/**/*.cpp src/**/*.cc src/**/**/*.cpp src/**/**/*.cc src/common/json_writer.cpp)
 file (GLOB C_FILES src/**/*.c src/**/**/*.c)
 file (GLOB H_FILES include/**/*.h include/**/**/*.h)
