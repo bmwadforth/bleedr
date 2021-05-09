@@ -15,10 +15,11 @@ private:
     Ethernet_packet_t *ethernet_packet;
     IPV4_packet_t *ip_packet;
     TCP_packet_t *tcp_packet;
+    Bleedr_t *bleedr;
 public:
     std::string filename;
 
-    JsonWriter(Ethernet_packet_t *, IPV4_packet_t *, TCP_packet_t *, std::string);
+    JsonWriter(Ethernet_packet_t *, IPV4_packet_t *, TCP_packet_t *, Bleedr_t*, std::string);
 
     void Write();
 };

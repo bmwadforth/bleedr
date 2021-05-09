@@ -12,5 +12,5 @@ void handle_tcp(Ethernet_packet_t *eth_packet, IPV4_packet_t *ipv4_packet, Bleed
     printf("TCP Destination Port: %X %X \n", tcp_packet->destination_port[0], tcp_packet->destination_port[1]);
 
 
-    json_writer_bridge(eth_packet, ipv4_packet, tcp_packet, "my_json.json");
+    json_writer_bridge(eth_packet, ipv4_packet, tcp_packet, bleedr, "my_json.json");
 }

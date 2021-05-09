@@ -11,7 +11,7 @@
 #define EXTERNC
 #endif
 
-EXTERNC void json_writer_bridge(Ethernet_packet_t*, IPV4_packet_t*, TCP_packet_t*, char* filename);
+EXTERNC void json_writer_bridge(Ethernet_packet_t*, IPV4_packet_t*, TCP_packet_t*, Bleedr_t*, char* filename);
 
 #undef EXTERNC
 // ...
