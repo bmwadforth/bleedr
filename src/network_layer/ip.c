@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "../../include/network_layer/ip.h"
 #include "../../include/transport_layer/tcp.h"
+#include "../../include/transport_layer/udp.h"
 
 
 void handle_ipv4(Ethernet_packet_t *eth_packet, Bleedr_t *bleedr) {
@@ -41,7 +42,7 @@ void handle_ipv4(Ethernet_packet_t *eth_packet, Bleedr_t *bleedr) {
             handle_tcp(eth_packet, ip_packet, bleedr);
             break;
         case IP_PROTOCOL_UDP:
-            printf("IP Protocol is UDP \n");
+            handle_udp(eth_packet, ip_packet, bleedr);
             break;
         case IP_PROTOCOL_L2TP:
             printf("IP Protocol is L2TP \n");

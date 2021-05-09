@@ -17,7 +17,7 @@ if (UNIX)
     SET(LIBRARIES pcap)
 endif()
 
-file (GLOB CPP_FILES src/**/*.cpp src/**/*.cc src/**/**/*.cpp src/**/**/*.cc)
+file (GLOB CPP_FILES src/**/*.cpp src/**/*.cc src/**/**/*.cpp src/**/**/*.cc src/common/json_writer.cpp)
 file (GLOB C_FILES src/**/*.c src/**/**/*.c)
 file (GLOB H_FILES include/**/*.h include/**/**/*.h)
 set (SOURCE_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
