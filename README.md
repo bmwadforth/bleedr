@@ -20,3 +20,35 @@ To execute bleedr, simply navigate to the root of the bleedr directory and run t
 * ```git submodule update --init``` (clones libpcap)
 * ```cmake -B ./build -S .```
 
+
+
+# Example JSON
+
+```json
+"data": [
+  "packet1": {
+   "link_layer": {
+      "ether_type": "802.3",
+      "source_mac": "A2:BE:1C:F3",
+      "destination_mac": "FF:FF:FF:FF"
+    },
+   "network_layer": {
+      "protocol": "ipv4",
+      "source_ip": "192.168.1.10",
+      "destination_ip": "35.231.233.15"
+    },
+   "transport_layer": {
+      "protocol": "tcp",
+      "source_port": "5232",
+      "destination_port": "443"
+    },
+    "application_layer": {
+    "protocol": "tls",
+      "version": "1.3"
+    },
+  },
+  "packet2": {}
+]
+```
+
+This is likely to change, but this is the rough idea. Bleedr will open a file handle to a JSON file and write into the data array as each packet comes through. 
