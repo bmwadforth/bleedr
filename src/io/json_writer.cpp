@@ -8,27 +8,25 @@
 #include "../../include/common/helpers.h"
 
 using namespace nlohmann;
+using namespace Bleedr::IO;
 
 void
-json_writer_bridge(Ethernet_t *eth_packet, IPV4_t *ip_packet, TCP_t *tcp_packet, Bleedr_t *bleedr,
-                   char *filename) {
-    auto writer = new JsonWriter(eth_packet, ip_packet, tcp_packet, bleedr, filename);
-    writer->Write();
-    delete writer;
+json_writer_bridge() {
+    jsonWriter->Write();
 }
 
-JsonWriter::JsonWriter(Ethernet_t *eth_packet, IPV4_t *ip_packet, TCP_t *tcp_packet,
-                       Bleedr_t *bleedr,
-                       std::string filename) {
+JsonWriter::JsonWriter(std::string filename, Bleedr_t *bleedr, bool with_raw) {
+    this->with_raw = with_raw;
     this->filename = std::move(filename);
-    this->ethernet_packet = eth_packet;
-    this->ip_packet = ip_packet;
-    this->tcp_packet = tcp_packet;
     this->bleedr = bleedr;
 }
 
-long JsonWriter::Filesize() const {
-    return std::filesystem::file_size(this->filename);
+unsigned long long JsonWriter::Filesize() const {
+    if(std::filesystem::exists(this->filename)) {
+        return std::filesystem::file_size(this->filename);
+    } else {
+        return 0;
+    }
 }
 
 json JsonWriter::Read() const {
@@ -39,7 +37,7 @@ json JsonWriter::Read() const {
 }
 
 void JsonWriter::Write() {
-    std::string ether_type = to_hex((uint8_t *) this->ethernet_packet->ether_type,
+    /*std::string ether_type = to_hex((uint8_t *) this->ethernet_packet->ether_type,
                                     sizeof(this->ethernet_packet->ether_type), true);
     std::string destination_mac = to_mac(this->ethernet_packet->dst_mac);
     std::string source_mac = to_mac(this->ethernet_packet->src_mac);
@@ -48,19 +46,23 @@ void JsonWriter::Write() {
     std::string ip_destination = to_ipv4(this->ip_packet->destination_ip);
     std::string tcp_destination_port = to_decimal(this->tcp_packet->destination_port,
                                                   sizeof(this->tcp_packet->destination_port));
-    std::string tcp_source_port = to_decimal(this->tcp_packet->source_port, sizeof(this->tcp_packet->source_port));
+    std::string tcp_source_port = to_decimal(this->tcp_packet->source_port, sizeof(this->tcp_packet->source_port));*/
     std::string raw_packet = to_hex((uint8_t *) this->bleedr->packet_data, this->bleedr->packet_len);
 
     json json_pkt_obj;
-    json_pkt_obj["link_layer"] = {{"ether_type",      ether_type},
+    /*json_pkt_obj["link_layer"] = {{"ether_type",      ether_type},
                                   {"source_mac",      source_mac},
                                   {"destination_mac", destination_mac}};
     json_pkt_obj["network_layer"] = {{"protocol",       ip_protocol},
                                      {"source_ip",      ip_source},
                                      {"destination_ip", ip_destination}};
     json_pkt_obj["transport_layer"] = {{"source_port",      tcp_source_port},
-                                       {"destination_port", tcp_destination_port}};
-    json_pkt_obj["raw"] = raw_packet;
+                                       {"destination_port", tcp_destination_port}};*/
+    json_pkt_obj["random"] = {{}};
+
+    if(this->with_raw) {
+        json_pkt_obj["raw"] = raw_packet;
+    }
 
     std::string serialized_string;
 

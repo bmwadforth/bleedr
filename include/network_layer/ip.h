@@ -33,6 +33,7 @@ struct IPV4_packet {
 typedef struct IPV4_packet IPV4_t;
 
 void handle_ipv4(Ethernet_t *, Bleedr_t *);
+
 void handle_ipv6();
 
 #endif //BLEEDR_IP_H

@@ -12,24 +12,27 @@
 
 using namespace nlohmann;
 
-class JsonWriter {
-private:
-    std::ofstream write_file;
-    Ethernet_t *ethernet_packet;
-    IPV4_t *ip_packet;
-    TCP_t *tcp_packet;
-    Bleedr_t *bleedr;
-public:
-    std::string filename;
+namespace Bleedr {
+    namespace IO {
+        class JsonWriter {
+        private:
+            Bleedr_t *bleedr;
+            std::ofstream write_file;
+            bool with_raw;
+        public:
+            std::string filename;
 
-    JsonWriter(Ethernet_t *, IPV4_t *, TCP_t *, Bleedr_t *, std::string);
+            JsonWriter(std::string, Bleedr_t *, bool with_raw = false);
 
-    json Read() const;
+            json Read() const;
 
-    void Write();
+            void Write();
 
-    long Filesize() const;
-};
+            unsigned long long Filesize() const;
+        };
+    }
+}
 
+extern Bleedr::IO::JsonWriter *jsonWriter;
 
 #endif //BLEEDR_JSON_WRITER_H

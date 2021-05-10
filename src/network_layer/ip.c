@@ -19,6 +19,7 @@ void handle_ipv4(Ethernet_t *eth_packet, Bleedr_t *bleedr) {
 
     switch(ip_protocol_decimal) {
         case IP_PROTOCOL_TCP:
+            bleedr->tpt_lyr = TCP;
             handle_tcp(eth_packet, ip_packet, bleedr);
             break;
         case IP_PROTOCOL_UDP:

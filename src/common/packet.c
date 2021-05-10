@@ -20,10 +20,12 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
     bleedr->packet_time = header->ts;
 
     switch (pcap_link_type) {
-        case LINKTYPE_ETHERNET:
+        case L2TYPE_ETHERNET:
+            bleedr->lnk_lyr = ETHERNET;
             handle_ethernet(bleedr);
             break;
-        case LINKTYPE_WIFI:
+        case L2TYPE_WIFI:
+            bleedr->lnk_lyr = WIFI;
             handle_wifi(bleedr);
             break;
         default:

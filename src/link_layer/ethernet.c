@@ -18,6 +18,7 @@ void handle_ethernet(Bleedr_t *bleedr) {
 
     switch (ether_type_decimal) {
         case ETHERTYPE_IPV4:
+            bleedr->net_lyr = IPV4;
             handle_ipv4(eth_hdr, bleedr);
             break;
         case ETHERTYPE_IPV6:

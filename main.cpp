@@ -1,15 +1,15 @@
 #include <cstdio>
 #include <pcap.h>
+#include "include/io/json_writer.h"
 
 extern "C" {
 #include "include/types.h"
 #include "include/common/interface.h"
 #include "include/common/packet.h"
-#include "include/link_layer/ethernet.h"
 #include "include/link_layer/wifi.h"
 }
 
-#define u_char unsigned char;
+Bleedr::IO::JsonWriter *jsonWriter;
 
 int main() {
     char err_buff[PCAP_ERRBUF_SIZE];
@@ -38,7 +38,12 @@ int main() {
     bleedr->pcap_h = pcap_h;
     bleedr->pcap_dump_h = pcap_dump_handle;
 
+    // TODO: JsonWriter filename comes from somewhere else
+    jsonWriter = new Bleedr::IO::JsonWriter("dump.json", bleedr);
+
     pcap_loop(pcap_h, 0, packet_handler, (unsigned char *) bleedr);
+
+    delete jsonWriter;
 
     return 0;
 }
