@@ -4,6 +4,10 @@
 #include "../../include/transport_layer/tcp.h"
 #include "../../include/transport_layer/udp.h"
 
+/*
+ * This file handles IPV4 Packets.
+ * See: https://en.wikipedia.org/wiki/IPv4
+ */
 
 void handle_ipv4(Ethernet_t *eth_packet, Bleedr_t *bleedr) {
     IPV4_t *ip_packet = (IPV4_t *) &bleedr->packet_data[sizeof(Ethernet_t)];

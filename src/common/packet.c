@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <pcap.h>
 #include "../../include/types.h"
-#include "../../include/interface.h"
+#include "../../include/common/interface.h"
 #include "../../include/link_layer/ethernet.h"
 #include "../../include/link_layer/wifi.h"
 

@@ -3,8 +3,8 @@
 
 extern "C" {
 #include "include/types.h"
-#include "include/interface.h"
-#include "include/packet.h"
+#include "include/common/interface.h"
+#include "include/common/packet.h"
 #include "include/link_layer/ethernet.h"
 #include "include/link_layer/wifi.h"
 }
