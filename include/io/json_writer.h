@@ -20,6 +20,7 @@ namespace Bleedr {
             std::ofstream write_file;
             bool with_raw;
         public:
+            int offset;
             std::string filename;
 
             JsonWriter(std::string, Bleedr_t *, bool with_raw = false);
@@ -29,6 +30,13 @@ namespace Bleedr {
             void Write();
 
             unsigned long long Filesize() const;
+
+            json WithEthernet();
+            json WithWiFi();
+            json WithIPv4();
+            json WithIPv6();
+            json WithTCP();
+            json WithUDP();
         };
     }
 }
