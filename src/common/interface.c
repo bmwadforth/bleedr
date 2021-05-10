@@ -12,7 +12,7 @@ void get_interface(char err_buf[], pcap_if_t *pcap_iface) {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
         printf("\n%d) %s", i++, tmp->description);
 #else
-        printf("\n%d) %s", i++, temp->name);
+        printf("\n%d) %s", i++, tmp->name);
 #endif
 
     }
