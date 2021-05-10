@@ -4,6 +4,8 @@ project(bleedr)
 #set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 20)
 
+include_directories(include)
+
 if (WIN32)
     include_directories(lib/npcap/Include)
     link_directories(lib/npcap/Lib)

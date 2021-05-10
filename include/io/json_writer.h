@@ -4,10 +4,10 @@
 #include <string>
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include "../types.h"
-#include "../link_layer/ethernet.h"
-#include "../network_layer/ip.h"
-#include "../transport_layer/tcp.h"
+#include "types.h"
+#include "link_layer/ethernet.h"
+#include "network_layer/ip.h"
+#include "transport_layer/tcp.h"
 
 using namespace nlohmann;
 

@@ -1,9 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "../../include/types.h"
-#include "../../include/transport_layer/udp.h"
-#include "../../include/link_layer/ethernet.h"
-#include "../../include/network_layer/ip.h"
+#include "types.h"
+#include "transport_layer/udp.h"
 
 /*
  * This file handles UDP Datagrams.

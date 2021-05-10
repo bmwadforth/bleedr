@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "../../include/types.h"
-#include "../../../include/link_layer/ethernet.h"
-#include "../../../include/network_layer/ip.h"
+#include "types.h"
+#include "link_layer/ethernet.h"
+#include "network_layer/ip.h"
 
 /*
  * This file handles 802.3 frames.

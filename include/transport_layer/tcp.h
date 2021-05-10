@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../types.h"
-#include "../link_layer/ethernet.h"
-#include "../network_layer/ip.h"
+#include "link_layer/ethernet.h"
+#include "network_layer/ip.h"
+#include "types.h"
 
 struct TCP_packet {
     uint8_t source_port[2];

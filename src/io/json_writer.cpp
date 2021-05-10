@@ -3,9 +3,9 @@
 #include <string>
 #include <sstream>
 #include <filesystem>
-#include "../../include/io/json_writer.h"
-#include "../../include/wrappers.h"
-#include "../../include/common/helpers.h"
+#include "io/json_writer.h"
+#include "wrappers.h"
+#include "common/helpers.h"
 
 using namespace nlohmann;
 using namespace Bleedr::IO;

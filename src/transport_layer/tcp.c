@@ -1,6 +1,6 @@
-#include "../../include/types.h"
-#include "../../include/transport_layer/tcp.h"
-#include "../../include/wrappers.h"
+#include "types.h"
+#include "transport_layer/tcp.h"
+#include "wrappers.h"
 
 /*
  * This file handles TCP Datagrams.

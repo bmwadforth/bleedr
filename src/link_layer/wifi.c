@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../../include/types.h"
+#include "types.h"
 
 /*
  * This file handles 802.11 frames.

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../types.h"
-#include "../link_layer/ethernet.h"
+#include "types.h"
+#include "link_layer/ethernet.h"
 
 // See https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers for protocol numbers.
 #define IP_PROTOCOL_ICMP 0x01

@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../include/network_layer/ip.h"
-#include "../../include/transport_layer/tcp.h"
-#include "../../include/transport_layer/udp.h"
+#include "network_layer/ip.h"
+#include "transport_layer/tcp.h"
 
 /*
  * This file handles IPV4 Packets.
