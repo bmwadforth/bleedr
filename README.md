@@ -51,4 +51,4 @@ To execute bleedr, simply navigate to the root of the bleedr directory and run t
 ]
 ```
 
-This is likely to change, but this is the rough idea. Bleedr will open a file handle to a JSON file and write into the data array as each packet comes through. 
+This is likely to change, but this is the rough idea. Bleedr will open a write_file handle to a JSON write_file and write into the data array as each packet comes through. 

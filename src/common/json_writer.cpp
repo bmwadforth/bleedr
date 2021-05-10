@@ -2,13 +2,10 @@
 #include <utility>
 #include <string>
 #include <sstream>
-#include <iomanip>
+#include <filesystem>
 #include "../../include/json_writer.h"
 #include "../../include/wrappers.h"
 #include "../../include/helpers.h"
-#include "../../include/link_layer/ethernet.h"
-#include "../../include/network_layer/ip.h"
-#include "../../include/transport_layer/tcp.h"
 
 using namespace nlohmann;
 
@@ -17,6 +14,7 @@ json_writer_bridge(Ethernet_packet_t *eth_packet, IPV4_packet_t *ip_packet, TCP_
                    char *filename) {
     auto writer = new JsonWriter(eth_packet, ip_packet, tcp_packet, bleedr, filename);
     writer->Write();
+    delete writer;
 }
 
 JsonWriter::JsonWriter(Ethernet_packet_t *eth_packet, IPV4_packet_t *ip_packet, TCP_packet_t *tcp_packet,
@@ -29,53 +27,57 @@ JsonWriter::JsonWriter(Ethernet_packet_t *eth_packet, IPV4_packet_t *ip_packet, 
     this->bleedr = bleedr;
 }
 
-void JsonWriter::Write() {
-    this->file.open(this->filename);
+long JsonWriter::Filesize() const {
+    return std::filesystem::file_size(this->filename);
+}
 
+json JsonWriter::Read() const {
+    std::ifstream i(this->filename);
+    json j;
+    i >> j;
+    return j;
+}
+
+void JsonWriter::Write() {
     std::string ether_type = to_hex((uint8_t *) this->ethernet_packet->ether_type,
                                     sizeof(this->ethernet_packet->ether_type), true);
     std::string destination_mac = to_mac(this->ethernet_packet->dst_mac);
     std::string source_mac = to_mac(this->ethernet_packet->src_mac);
-
     std::string ip_protocol = to_hex((uint8_t *) this->ip_packet->protocol, sizeof(this->ip_packet->protocol), true);
     std::string ip_source = to_ipv4(this->ip_packet->source_ip);
     std::string ip_destination = to_ipv4(this->ip_packet->destination_ip);
-
-    std::string tcp_destination_port = to_decimal(this->tcp_packet->destination_port, sizeof(this->tcp_packet->destination_port));
+    std::string tcp_destination_port = to_decimal(this->tcp_packet->destination_port,
+                                                  sizeof(this->tcp_packet->destination_port));
     std::string tcp_source_port = to_decimal(this->tcp_packet->source_port, sizeof(this->tcp_packet->source_port));
-
     std::string raw_packet = to_hex((uint8_t *) this->bleedr->packet_data, this->bleedr->packet_len);
 
+    json json_pkt_obj;
+    json_pkt_obj["link_layer"] = {{"ether_type",      ether_type},
+                                  {"source_mac",      source_mac},
+                                  {"destination_mac", destination_mac}};
+    json_pkt_obj["network_layer"] = {{"protocol",       ip_protocol},
+                                     {"source_ip",      ip_source},
+                                     {"destination_ip", ip_destination}};
+    json_pkt_obj["transport_layer"] = {{"source_port",      tcp_source_port},
+                                       {"destination_port", tcp_destination_port}};
+    json_pkt_obj["raw"] = raw_packet;
 
-    // TODO: check if data array exists in file, if not
-    json j;
-    j = {
-            {"packet",
-                    {
-                            {"link_layer", {
-                                                   {"ether_type", ether_type},
-                                                   {"source_mac", source_mac},
-                                                   {"destination_mac", destination_mac}
-                                           }},
-                            {"network_layer", {
-                                                      //{"version", ip_version},
-                                                      {"protocol", ip_protocol},
-                                                      {"source_ip", ip_source},
-                                                      {"destination_ip", ip_destination}
-                                              }},
-                            {"transport_layer", {
-                                                        {"source_port", tcp_source_port},
-                                                        {"destination_port", tcp_destination_port},
-                                                }},
-                            {"raw", raw_packet}
-                    },
-            },
-    };
+    std::string serialized_string;
 
-    std::string serialized_string = j.dump();
+    if (this->Filesize() == 0) {
+        json empty_array = json::array();
+        json root_json;
+        root_json["data"] = empty_array;
+        root_json["data"].push_back(json_pkt_obj);
+        serialized_string = root_json.dump();
+    } else {
+        auto parsed_json = this->Read();
+        // TODO Make sure data actually exists
+        parsed_json["data"].push_back(json_pkt_obj);
+        serialized_string = parsed_json.dump();
+    }
 
-    // TODO: append this j object to an array then write to file
-
-    this->file << serialized_string << std::endl;
-    this->file.close();
+    this->write_file.open(this->filename);
+    this->write_file << serialized_string << std::endl;
+    this->write_file.close();
 }
