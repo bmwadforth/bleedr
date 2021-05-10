@@ -65,9 +65,8 @@ void JsonWriter::Write() {
     std::string serialized_string;
 
     if (this->Filesize() == 0) {
-        json empty_array = json::array();
         json root_json;
-        root_json["data"] = empty_array;
+        root_json["data"] = json::array();
         root_json["data"].push_back(json_pkt_obj);
         serialized_string = root_json.dump();
     } else {
