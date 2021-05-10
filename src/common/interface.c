@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <pcap.h>
 
+#define scanf_s scanf
+
 void get_interface(char err_buf[], pcap_if_t *pcap_iface) {
     pcap_if_t *interfaces, *tmp;
     int i = 0;

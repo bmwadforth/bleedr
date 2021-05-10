@@ -14,6 +14,7 @@ if (UNIX)
     include_directories(lib/libpcap)
     link_directories(lib/libpcap)
     add_subdirectory(lib/libpcap)
+    link_libraries(stdc++fs)
     SET(LIBRARIES pcap)
 endif()
 
