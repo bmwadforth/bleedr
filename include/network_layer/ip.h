@@ -1,5 +1,4 @@
-#ifndef BLEEDR_IP_H
-#define BLEEDR_IP_H
+#pragma once
 
 #include "../types.h"
 #include "../link_layer/ethernet.h"
@@ -35,5 +34,3 @@ typedef struct IPV4_packet IPV4_t;
 void handle_ipv4(Ethernet_t *, Bleedr_t *);
 
 void handle_ipv6();
-
-#endif //BLEEDR_IP_H

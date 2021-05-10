@@ -1,6 +1,3 @@
-#ifndef BLEEDR_WIFI_H
-#define BLEEDR_WIFI_H
+#pragma once
 
 void handle_wifi(Bleedr_t *bleedr);
-
-#endif //BLEEDR_WIFI_H

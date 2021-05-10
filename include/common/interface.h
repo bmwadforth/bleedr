@@ -1,5 +1,4 @@
-#ifndef BLEEDR_INTERFACE_H
-#define BLEEDR_INTERFACE_H
+#pragma once
 
 #include <pcap.h>
 
@@ -11,5 +10,3 @@
 void get_interface(char[], pcap_if_t *);
 
 void activate_interface(pcap_t *);
-
-#endif //BLEEDR_INTERFACE_H

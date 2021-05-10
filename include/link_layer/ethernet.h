@@ -1,5 +1,4 @@
-#ifndef BLEEDR_ETHERNET_H
-#define BLEEDR_ETHERNET_H
+#pragma once
 
 // See https://en.wikipedia.org/wiki/EtherType for ether types.
 #define ETHERTYPE_IPV4 0x0800
@@ -18,5 +17,3 @@ struct Ethernet_packet {
 typedef struct Ethernet_packet Ethernet_t;
 
 void handle_ethernet(Bleedr_t *bleedr);
-
-#endif //BLEEDR_ETHERNET_H

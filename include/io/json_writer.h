@@ -1,5 +1,4 @@
-#ifndef BLEEDR_JSON_WRITER_H
-#define BLEEDR_JSON_WRITER_H
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -32,15 +31,18 @@ namespace Bleedr {
             unsigned long long Filesize() const;
 
             json WithEthernet();
+
             json WithWiFi();
+
             json WithIPv4();
+
             json WithIPv6();
+
             json WithTCP();
+
             json WithUDP();
         };
     }
 }
 
 extern Bleedr::IO::JsonWriter *jsonWriter;
-
-#endif //BLEEDR_JSON_WRITER_H

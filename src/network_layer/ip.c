@@ -17,7 +17,7 @@ void handle_ipv4(Ethernet_t *eth_packet, Bleedr_t *bleedr) {
     long ip_protocol_decimal = strtol((const char *) ip_protocol, NULL, 16);
     free(ip_protocol);
 
-    switch(ip_protocol_decimal) {
+    switch (ip_protocol_decimal) {
         case IP_PROTOCOL_TCP:
             bleedr->tpt_lyr = TCP;
             handle_tcp(eth_packet, ip_packet, bleedr);

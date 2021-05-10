@@ -1,5 +1,4 @@
-#ifndef BLEEDR_TCP_H
-#define BLEEDR_TCP_H
+#pragma once
 
 #include "../types.h"
 #include "../link_layer/ethernet.h"
@@ -29,5 +28,3 @@ struct TCP_packet {
 typedef struct TCP_packet TCP_t;
 
 void handle_tcp(Ethernet_t *, IPV4_t *, Bleedr_t *);
-
-#endif //BLEEDR_TCP_H

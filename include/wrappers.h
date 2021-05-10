@@ -1,5 +1,4 @@
-#ifndef BLEEDR_WRAPPERS_H
-#define BLEEDR_WRAPPERS_H
+#pragma once
 
 #include "link_layer/ethernet.h"
 #include "network_layer/ip.h"
@@ -15,4 +14,3 @@ EXTERNC void json_writer_bridge();
 
 #undef EXTERNC
 
-#endif //BLEEDR_WRAPPERS_H

@@ -21,11 +21,11 @@ std::string to_hex(uint8_t *buff, int len, bool with_prefix) {
 std::string to_mac(uint8_t *buff) {
     std::stringstream raw;
 
-    for(int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; ++i) {
         if (i == 5) {
-            raw << std::hex << (int)buff[i];
+            raw << std::hex << (int) buff[i];
         } else {
-            raw << std::hex << (int)buff[i] << ":";
+            raw << std::hex << (int) buff[i] << ":";
         }
     }
 
@@ -35,18 +35,18 @@ std::string to_mac(uint8_t *buff) {
 std::string to_ipv4(uint8_t *buff) {
     std::stringstream raw;
 
-    for(int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i) {
         if (i == 3) {
-            raw << (int)buff[i];
+            raw << (int) buff[i];
         } else {
-            raw << (int)buff[i] << ".";
+            raw << (int) buff[i] << ".";
         }
     }
 
     return raw.str();
 }
 
-std::string to_decimal(uint8_t * buff, int len) {
+std::string to_decimal(uint8_t *buff, int len) {
     std::stringstream raw;
     unsigned int temp;
 

@@ -1,5 +1,4 @@
-#ifndef BLEEDR_TYPES_H
-#define BLEEDR_TYPES_H
+#pragma once
 
 #include <pcap.h>
 #include <time.h>
@@ -32,5 +31,3 @@ typedef struct Bleedr_ {
     NET_LYR_PROTOCOL_T net_lyr;
     TPT_LYR_PROTOCOL_T tpt_lyr;
 } Bleedr_t;
-
-#endif //BLEEDR_TYPES_H
