@@ -5,25 +5,24 @@
 #include <string>
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include "types.h"
-#include "link_layer/ethernet.h"
-#include "network_layer/ip.h"
-#include "transport_layer/tcp.h"
+#include "../types.h"
+#include "../link_layer/ethernet.h"
+#include "../network_layer/ip.h"
+#include "../transport_layer/tcp.h"
 
 using namespace nlohmann;
 
 class JsonWriter {
 private:
-    std::ifstream read_file;
     std::ofstream write_file;
-    Ethernet_packet_t *ethernet_packet;
-    IPV4_packet_t *ip_packet;
-    TCP_packet_t *tcp_packet;
+    Ethernet_t *ethernet_packet;
+    IPV4_t *ip_packet;
+    TCP_t *tcp_packet;
     Bleedr_t *bleedr;
 public:
     std::string filename;
 
-    JsonWriter(Ethernet_packet_t *, IPV4_packet_t *, TCP_packet_t *, Bleedr_t *, std::string);
+    JsonWriter(Ethernet_t *, IPV4_t *, TCP_t *, Bleedr_t *, std::string);
 
     json Read() const;
 

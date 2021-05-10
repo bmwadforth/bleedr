@@ -3,21 +3,21 @@
 #include <string>
 #include <sstream>
 #include <filesystem>
-#include "../../include/json_writer.h"
+#include "../../include/io/json_writer.h"
 #include "../../include/wrappers.h"
 #include "../../include/helpers.h"
 
 using namespace nlohmann;
 
 void
-json_writer_bridge(Ethernet_packet_t *eth_packet, IPV4_packet_t *ip_packet, TCP_packet_t *tcp_packet, Bleedr_t *bleedr,
+json_writer_bridge(Ethernet_t *eth_packet, IPV4_t *ip_packet, TCP_t *tcp_packet, Bleedr_t *bleedr,
                    char *filename) {
     auto writer = new JsonWriter(eth_packet, ip_packet, tcp_packet, bleedr, filename);
     writer->Write();
     delete writer;
 }
 
-JsonWriter::JsonWriter(Ethernet_packet_t *eth_packet, IPV4_packet_t *ip_packet, TCP_packet_t *tcp_packet,
+JsonWriter::JsonWriter(Ethernet_t *eth_packet, IPV4_t *ip_packet, TCP_t *tcp_packet,
                        Bleedr_t *bleedr,
                        std::string filename) {
     this->filename = std::move(filename);

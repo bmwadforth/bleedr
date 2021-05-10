@@ -9,7 +9,7 @@
  */
 
 void handle_ethernet(Bleedr_t *bleedr) {
-    Ethernet_packet_t *eth_hdr = (Ethernet_packet_t *) bleedr->packet_data;
+    Ethernet_t *eth_hdr = (Ethernet_t *) bleedr->packet_data;
 
     char *hex_eth_hd = malloc(sizeof(char) * 5);
     sprintf(hex_eth_hd, "%02X%02X", eth_hdr->ether_type[0], eth_hdr->ether_type[1]);
@@ -21,17 +21,11 @@ void handle_ethernet(Bleedr_t *bleedr) {
             handle_ipv4(eth_hdr, bleedr);
             break;
         case ETHERTYPE_IPV6:
-            //handle_ipv6();
-            break;
         case ETHERTYPE_8021X:
-            break;
         case ETHERTYPE_ARP:
-            //TODO: Calculate payload size
         case ETHERTYPE_8021Q:
-            break;
         case ETHERTYPE_8021Q_NNI:
+            fprintf(stderr, "EtherTypes IPV6, 802.1x, ARP, 802.1q/802.1q_nni are currently unsupported.\n");
             break;
     }
-
-    printf("\n\n");
 }

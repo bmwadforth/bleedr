@@ -7,7 +7,7 @@
 struct Bleedr {
     pcap_t *pcap_h;
     pcap_dumper_t *pcap_dump_h;
-    const u_char *packet_data;
+    const uint8_t *packet_data;
     struct timeval packet_time;
     int packet_len;
 };

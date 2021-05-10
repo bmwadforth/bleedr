@@ -6,32 +6,28 @@
 #include "../network_layer/ip.h"
 
 struct TCP_packet {
-    unsigned char source_port[2];
-    unsigned char destination_port[2];
-
-    unsigned char sequence_number[4];
-    unsigned char ack_number[4];
-
-    unsigned char ns_flag: 1;
-    unsigned char reserved: 3;
-    unsigned char data_offset: 4;
-
-    unsigned char fin_flag: 1;
-    unsigned char syn_flag: 1;
-    unsigned char rst_flag: 1;
-    unsigned char psh_flag: 1;
-    unsigned char ack_flag: 1;
-    unsigned char urg_flag: 1;
-    unsigned char ece_flag: 1;
-    unsigned char cwr_flag: 1;
-    unsigned char window_size[2];
-
-    unsigned char checksum[2];
-    unsigned char urgent_pointer[2];
+    uint8_t source_port[2];
+    uint8_t destination_port[2];
+    uint8_t sequence_number[4];
+    uint8_t ack_number[4];
+    uint8_t ns_flag: 1;
+    uint8_t reserved: 3;
+    uint8_t data_offset: 4;
+    uint8_t fin_flag: 1;
+    uint8_t syn_flag: 1;
+    uint8_t rst_flag: 1;
+    uint8_t psh_flag: 1;
+    uint8_t ack_flag: 1;
+    uint8_t urg_flag: 1;
+    uint8_t ece_flag: 1;
+    uint8_t cwr_flag: 1;
+    uint8_t window_size[2];
+    uint8_t checksum[2];
+    uint8_t urgent_pointer[2];
 };
 
-typedef struct TCP_packet TCP_packet_t;
+typedef struct TCP_packet TCP_t;
 
-void handle_tcp(Ethernet_packet_t *, IPV4_packet_t *, Bleedr_t *);
+void handle_tcp(Ethernet_t *, IPV4_t *, Bleedr_t *);
 
 #endif //BLEEDR_TCP_H

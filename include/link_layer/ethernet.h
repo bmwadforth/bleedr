@@ -1,6 +1,7 @@
 #ifndef BLEEDR_ETHERNET_H
 #define BLEEDR_ETHERNET_H
 
+// See https://en.wikipedia.org/wiki/EtherType for ether types.
 #define ETHERTYPE_IPV4 0x0800
 #define ETHERTYPE_IPV6 0x86DD
 #define ETHERTYPE_8021Q 0x9100
@@ -9,16 +10,12 @@
 #define ETHERTYPE_ARP 0x0806
 
 struct Ethernet_packet {
-    /* destination MAC */
-    u_char dst_mac[6];
-    /* source MAC */
-    u_char src_mac[6];
-    /* EtherType */
-    // See https://en.wikipedia.org/wiki/EtherType for ether types.
+    uint8_t dst_mac[6];
+    uint8_t src_mac[6];
     uint8_t ether_type[2];
 };
 
-typedef struct Ethernet_packet Ethernet_packet_t;
+typedef struct Ethernet_packet Ethernet_t;
 
 void handle_ethernet(Bleedr_t *bleedr);
 
