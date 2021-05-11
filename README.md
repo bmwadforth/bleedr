@@ -102,7 +102,7 @@ You can pass an argument to bleedr that turns on socket streaming. For example, 
 
 ## Link Layer
 | Protocol          | Support         
-| -------------     |:-------------------- :| 
+| ------------------|:---------------------:| 
 | (802.3) Ethernet  | :heavy_check_mark:    |
 | (802.11) WiFi     | :x:                   |
 | L2TP              | :x:                   |
