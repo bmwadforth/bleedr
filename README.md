@@ -44,14 +44,14 @@ The JSON looks like so:
           "ether_type": "0x0800",
           "source_mac": "10:bf:48:80:68:2d"
         },
-        "protocol": "Ethernet"
+        "protocol": 0
       },
       "network_layer": {
         "meta": {
           "destination_ip": "94.149.169.160",
           "source_ip": "92.65.112.172"
         },
-        "protocol": "IPv4"
+        "protocol": 0
       },
       "transport_layer": {
         "meta": {
@@ -62,7 +62,7 @@ The JSON looks like so:
           "source_port": "23882",
           "syn_flag": false
         },
-        "protocol": "TCP"
+        "protocol": 0
       }
     },
     {
@@ -72,25 +72,23 @@ The JSON looks like so:
           "ether_type": "0x0800",
           "source_mac": "ec:ad:e0:94:f6:50"
         },
-        "protocol": "Ethernet"
+        "protocol": 0
       },
       "network_layer": {
         "meta": {
           "destination_ip": "78.168.76.154",
           "source_ip": "246.126.85.30"
         },
-        "protocol": "IPv4"
+        "protocol": 0
       },
       "transport_layer": {
         "meta": {
-          "ack_flag": false,
-          "destination_port": "64730",
-          "fin_flag": false,
-          "sequence_number": "3275329088",
-          "source_port": "41448",
-          "syn_flag": false
+          "checksum": "c35d",
+          "destination_port": "40934",
+          "length": "11962",
+          "source_port": "36863"
         },
-        "protocol": "TCP"
+        "protocol": 1
       }
     }
   ]
