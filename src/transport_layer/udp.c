@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "types.h"
 #include "transport_layer/udp.h"
 
@@ -10,6 +9,5 @@
 void handle_udp(Ethernet_t *eth_packet, IPV4_t *ipv4_packet, Bleedr_t *bleedr) {
     UDP_t *udp_packet = (UDP_t *) &bleedr->packet_data[sizeof(Ethernet_t) + sizeof(IPV4_t)];
 
-    printf("UDP Source Port: %X %X \n", udp_packet->source_port[0], udp_packet->source_port[1]);
-    printf("UDP Destination Port: %X %X \n", udp_packet->destination_port[0], udp_packet->destination_port[1]);
+    // TODO: Figure out basics of what application protocol is in TCP payload
 }

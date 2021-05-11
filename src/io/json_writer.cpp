@@ -6,6 +6,7 @@
 #include "io/json_writer.h"
 #include "wrappers.h"
 #include "common/helpers.h"
+#include "transport_layer/udp.h"
 
 using namespace nlohmann;
 using namespace Bleedr::IO;
@@ -169,7 +170,20 @@ json JsonWriter::WithTCP() {
 }
 
 json JsonWriter::WithUDP() {
+    auto *udp = (UDP_packet *) &this->bleedr->packet_data[this->offset];
+    this->offset += sizeof(UDP_packet);
+
+    std::string udp_destination_port = to_decimal(udp->destination_port,
+                                                  sizeof(udp->destination_port));
+    std::string udp_source_port = to_decimal(udp->source_port, sizeof(udp->source_port));
+    std::string udp_length = to_decimal(udp->length, sizeof(udp->length));
+    std::string udp_checksum = to_hex(udp->checksum, sizeof(udp->checksum));
+
     json tmp;
+    tmp["meta"]["source_port"] = udp_destination_port;
+    tmp["meta"]["destination_port"] = udp_source_port;
+    tmp["meta"]["length"] = udp_length;
+    tmp["meta"]["checksum"] = udp_checksum;
 
     return tmp;
 }

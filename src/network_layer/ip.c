@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "network_layer/ip.h"
 #include "transport_layer/tcp.h"
+#include "transport_layer/udp.h"
 
 /*
  * This file handles IPV4 Packets.
@@ -22,6 +23,9 @@ void handle_ipv4(Ethernet_t *eth_packet, Bleedr_t *bleedr) {
             handle_tcp(eth_packet, ip_packet, bleedr);
             break;
         case IP_PROTOCOL_UDP:
+            bleedr->tpt_lyr = UDP;
+            handle_udp(eth_packet, ip_packet, bleedr);
+            break;
         case IP_PROTOCOL_L2TP:
             fprintf(stderr, "IP Protocol L2TP, UDP are currently unsupported.\n");
             break;

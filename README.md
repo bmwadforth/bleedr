@@ -31,8 +31,9 @@ To build and ultimately execute bleedr, simply navigate to the root of the bleed
 
 # Writers
 ## JSON Writer
-You can pass an argument to bleedr that turns on JSON output. You must also pass in a parameter that specifies where to save the .json output. The JSON looks like so:
+You can pass an argument to bleedr that turns on JSON output. You must also pass in a parameter that specifies where to save the .json output. You will notice the protocol property is an integer. See: https://github.com/fntmx/bleedr/blob/master/include/types.h for the enumerations that map the enum value to protocols (TCP, UDP, Ethernet, WiFi, etc.). 
 
+The JSON looks like so:
 ```json
 {
   "data": [
@@ -96,5 +97,5 @@ You can pass an argument to bleedr that turns on JSON output. You must also pass
 }
 ```
 
-## Sockets
+## Socket Writer
 You can pass an argument to bleedr that turns on socket streaming. For example, if you were running bleedr on a remote computer and wanted to stream the packet capture to another computer on another network - you would be able to use the socket writer to achieve this. (TODO: Add TLS/SSL support)
