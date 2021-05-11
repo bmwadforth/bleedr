@@ -107,10 +107,29 @@ You can pass an argument to bleedr that turns on socket streaming. For example, 
 | (802.11) WiFi     | :x:                   |
 | L2TP              | :x:                   |
 | ATM               | :x:                   |
+| PPPoE             | :x:                   |
 | ARP               | :x:                   |
 | Bluetooth         | :x:                   |
 | VLAN              | :x:                   |
 
 ## Network Layer
+| Protocol          | Support
+| ------------------|:---------------------:| 
+| IPv4              | :heavy_check_mark:    |
+| IPv6              | :x:                   |
+| ICMP              | :x:                   |
+| NAT               | :x:                   |
+| IPSec             | :x:                   |
+| OSPF              | :x:                   |
+| RIP               | :x:                   |
 
 ## Transport Layer
+| Protocol          | Support
+| ------------------|:---------------------:| 
+| TCP               | :heavy_check_mark:    |
+| UDP               | :heavy_check_mark:    |
+| ESP               | :x:                   |
+| AH                | :x:                   |
+| SCTP              | :x:                   |
+| NBF               | :x:                   |
+| iSCSI             | :x:                   |
