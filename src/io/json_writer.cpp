@@ -78,6 +78,10 @@ void JsonWriter::Write() {
         json_pkt_obj["raw"] = to_hex((uint8_t *) this->bleedr->packet_data, this->bleedr->packet_len);;
     }
 
+    json_pkt_obj["link_layer"]["protocol"] = this->bleedr->lnk_lyr;
+    json_pkt_obj["network_layer"]["protocol"] = this->bleedr->net_lyr;
+    json_pkt_obj["transport_layer"]["protocol"] = this->bleedr->tpt_lyr;
+
     std::string serialized_string;
 
     if (this->Filesize() == 0) {
@@ -107,9 +111,10 @@ json JsonWriter::WithEthernet() {
     std::string source_mac = to_mac(eth->src_mac);
 
     json tmp;
-    tmp = {{"ether_type",      ether_type},
-           {"source_mac",      source_mac},
-           {"destination_mac", destination_mac}};
+    tmp["meta"]["ether_type"] = ether_type;
+    tmp["meta"]["source_mac"] = source_mac;
+    tmp["meta"]["destination_mac"] = destination_mac;
+
     return tmp;
 }
 
@@ -128,10 +133,8 @@ json JsonWriter::WithIPv4() {
     std::string ip_destination = to_ipv4(ip->destination_ip);
 
     json tmp;
-
-    tmp = {{"protocol",       ip_protocol},
-           {"source_ip",      ip_source},
-           {"destination_ip", ip_destination}};
+    tmp["meta"]["source_ip"] = ip_source;
+    tmp["meta"]["destination_ip"] = ip_destination;
 
     return tmp;
 }
@@ -149,11 +152,18 @@ json JsonWriter::WithTCP() {
     std::string tcp_destination_port = to_decimal(tcp->destination_port,
                                                   sizeof(tcp->destination_port));
     std::string tcp_source_port = to_decimal(tcp->source_port, sizeof(tcp->source_port));
+    std::string sequence_num = to_decimal(tcp->sequence_number, sizeof(tcp->sequence_number));
+    bool fin_flag = (bool) tcp->fin_flag;
+    bool ack_flag = (bool) tcp->ack_flag;
+    bool syn_flag = (bool) tcp->syn_flag;
 
     json tmp;
-
-    tmp = {{"source_port",      tcp_source_port},
-           {"destination_port", tcp_destination_port}};
+    tmp["meta"]["source_port"] = tcp_source_port;
+    tmp["meta"]["destination_port"] = tcp_destination_port;
+    tmp["meta"]["ack_flag"] = ack_flag;
+    tmp["meta"]["fin_flag"] = fin_flag;
+    tmp["meta"]["syn_flag"] = syn_flag;
+    tmp["meta"]["sequence_number"] = sequence_num;
 
     return tmp;
 }

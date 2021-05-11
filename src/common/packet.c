@@ -4,6 +4,7 @@
 #include "common/interface.h"
 #include "link_layer/ethernet.h"
 #include "link_layer/wifi.h"
+#include "wrappers.h"
 
 void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data) {
     Bleedr_t *bleedr = (Bleedr_t *) param;
@@ -32,4 +33,6 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
             //TODO: return pcap_error here, link-type encapsulating packet is not supported
             break;
     }
+
+    json_writer_bridge();
 }
