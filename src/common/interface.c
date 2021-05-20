@@ -33,7 +33,7 @@ void get_interface(char err_buf[], pcap_if_t *pcap_iface) {
 
     *pcap_iface = *tmp;
     // TODO this is a bug, we're freeing interfaces, tmp points to interface and pcap_iface attemps to point to tmp.
-    pcap_freealldevs(interfaces);
+    //pcap_freealldevs(interfaces);
 };
 
 void activate_interface(pcap_t *pcap_h) {

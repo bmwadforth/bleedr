@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "types.h"
 #include "link_layer/ethernet.h"
 #include "network_layer/ip.h"

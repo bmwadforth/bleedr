@@ -16,9 +16,10 @@ int main() {
     auto *pcap_iface = (pcap_if_t *) malloc(sizeof(pcap_if_t));
     auto *bleedr = (Bleedr_t *) malloc(sizeof(Bleedr_t));
 
-    if (pcap_init(PCAP_CHAR_ENC_UTF_8, err_buff) == -1) {
+    /*
+    if (pcap_init(0x00000000U, err_buff) == -1) {
         fprintf(stderr, "Initialise Error: %s\n", err_buff);
-    }
+    }*/
 
     get_interface(err_buff, pcap_iface);
 
