@@ -11,8 +11,9 @@ if (WIN32)
 endif()
 
 if (UNIX AND NOT APPLE)
-    add_subdirectory(lib/libpcap)
     include_directories(lib/libpcap)
+    link_directories(lib/libpcap)
+    add_subdirectory(lib/libpcap)
     link_libraries(stdc++fs)
 endif()
 
