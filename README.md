@@ -95,7 +95,7 @@ The JSON looks like so:
 }
 ```
 
-## Socket Writer
+## Socket Writer (TODO)
 You can pass an argument to bleedr that turns on socket streaming. For example, if you were running bleedr on a remote computer and wanted to stream the packet capture to another computer on another network - you would be able to use the socket writer to achieve this. (TODO: Add TLS/SSL support)
 
 # Supported Protocols
