@@ -15,6 +15,7 @@ if (UNIX AND NOT APPLE)
     link_directories(lib/libpcap)
     add_subdirectory(lib/libpcap)
     link_libraries(stdc++fs)
+    set (CMAKE_CXX_FLAGS "-lpcap")
 endif()
 
 if (APPLE)
