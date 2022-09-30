@@ -15,7 +15,7 @@ if (UNIX AND NOT APPLE)
     link_directories(lib/libpcap)
     add_subdirectory(lib/libpcap)
     link_libraries(stdc++fs)
-    SET(GCC_COVERAGE_LINK_FLAGS "-lgcov")
+    find_library(LIBRARIES NAMES pcap)
 endif()
 
 if (APPLE)
@@ -29,8 +29,6 @@ file (GLOB CPP_FILES src/**/*.cpp src/**/*.cc src/**/**/*.cpp src/**/**/*.cc src
 file (GLOB C_FILES src/**/*.c src/**/**/*.c)
 file (GLOB H_FILES include/**/*.h include/**/**/*.h)
 set (SOURCE_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
-
-SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
 
 add_executable(bleedr main.cpp ${SOURCE_FILES})
 target_link_libraries(bleedr ${LIBRARIES} nlohmann_json::nlohmann_json)
